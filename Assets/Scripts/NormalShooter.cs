@@ -24,8 +24,22 @@ public class NormalShooter : MonoBehaviour
 
     void Shoot()
     {
-       
+        if (bulletManager.GetBulletRemaining() > 0)
+        {
+            GameObject obj = Instantiate(bulletPrefabs, gate.transform.position, Quaternion.Euler(90, 0, 0));
+
+            // 弾を消費する
+            bulletManager.ConsumeBullet();
+
+            Rigidbody bulletRbody = obj.GetComponent<Rigidbody>();
+            bulletRbody.AddForce(new Vector3 (0, 0, shootSpeed), ForceMode.Impulse);
+        }
+        else
+        {
+            bulletManager.RecoverBullet();
+        }
     }
+       
 
     void Start()
     {
