@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance;
 using UnityEngine.InputSystem;
 
 public class NormalShooter : MonoBehaviour
@@ -28,6 +30,8 @@ public class NormalShooter : MonoBehaviour
         {
             GameObject obj = Instantiate(bulletPrefabs, gate.transform.position, Quaternion.Euler(90, 0, 0));
 
+            obj.transform.parent = bullets.transform;
+
             // 弾を消費する
             bulletManager.ConsumeBullet();
 
@@ -40,9 +44,8 @@ public class NormalShooter : MonoBehaviour
         }
     }
        
-
     void Start()
     {
-        
-    }    
+        bullets = GameObject.FindWithTag("Bullets");
+    }
 }

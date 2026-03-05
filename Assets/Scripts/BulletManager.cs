@@ -39,7 +39,7 @@ public class BulletManager : MonoBehaviour
     // 充填メソッド
     public void RecoverBullet()
     {
-        if (bulletRecover != null)
+        if (bulletRecover == null)
         {
             if(magazine > 0)
             {
@@ -81,7 +81,7 @@ public class BulletManager : MonoBehaviour
         // 赤い文字で点滅表示
         if(bulletRecover != null)
         {
-            float val = Mathf.Sin(Time.time);
+            float val = Mathf.Sin(Time.time * 20);
             if (val > 0)
             {
                 label = "bulletRecover" + counter;
