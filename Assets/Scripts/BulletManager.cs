@@ -58,7 +58,7 @@ public class BulletManager : MonoBehaviour
 
         while (counter > 0)
         {
-            yield return new WaitForSeconds(1.0f); // ウェイト処理
+            yield return new WaitForSeconds(0.3f); // ウェイト処理
             counter--;
         }
         AddBullet(maxRemaining);

@@ -42,7 +42,7 @@ public class Wall : MonoBehaviour
         if (currentDamage != null) return;
 
         // 衝突相手がBulletタグを持っていた場合
-        if (other.gameObject.tag == "Bullets")
+        if (other.gameObject.tag == "Bullet")
         {
             // ダメージコルーチンを発動
             currentDamage = StartCoroutine(DamageCol());
