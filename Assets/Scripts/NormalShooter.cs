@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Linq.Expressions;
 using UnityEngine;
@@ -17,11 +18,31 @@ public class NormalShooter : MonoBehaviour
     public float shootSpeed = 10.0f; //弾速
 
     GameObject bullets; //生成した弾をまとめるオブジェクト
+
+    const int maxShootPower = 3;
+    int shootPower = 1;
+
+    [Header("ソードのスクリプト")]
+    public NormalSword normalSword;
     
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
-        Shoot();
+        if (normalSword.GetIsSword()) return;
+
+        if(GameManager.gameState == GameState.retry)
+        {
+            GameManager.RetryScene();
+        }
+        else if(GameManager.gameState != GameState.result)
+        {
+            GameManager gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+            gm.NextScene(gm.nextScene);
+        }
+        else
+        {
+            Shoot();
+        }
     }
 
     void Shoot()
@@ -47,5 +68,26 @@ public class NormalShooter : MonoBehaviour
     void Start()
     {
         bullets = GameObject.FindWithTag("Bullets");
+    }
+
+    public void ShootPowerUp()
+    {
+        shootPower++;
+        if (shootPower > maxShootPower) shootPower = maxShootPower;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
+    }
+
+    public void ShootPowerDown()
+    {
+        shootPower--;
+        if (shootPower <= 0) shootPower = 1;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
+    }
+
+    public int GetShootPower()
+    {
+        return shootPower;
     }
 }

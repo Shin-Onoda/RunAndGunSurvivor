@@ -15,12 +15,16 @@ public class BulletManager : MonoBehaviour
 
     Coroutine bulletRecover; // 発生中のコルーチン情報の参照用
 
+    [Header("UIオブジェクト")]
+    public UIController ui;
+
     //弾の消費
     public void ConsumeBullet()
     {
         if (bulletRemaining > 0)        // 残弾 > 0 ならば
         {
             bulletRemaining--;          // 弾を1消費
+            ui.UpdateBullet();          // UIを更新
         }
     }
 
@@ -30,10 +34,23 @@ public class BulletManager : MonoBehaviour
         return bulletRemaining;
     }
 
+    // 残マガジンの取得
+    public int GetMagazineRemaining()
+    {
+        return magazine;
+    }
+
     // 弾の充填
     public void AddBullet(int num)
     {
         bulletRemaining = num;
+        ui.UpdateMagazine();
+    }
+
+    public void AddMagazine()
+    {
+        magazine++;
+        ui.UpdateMagazine();
     }
 
     // 充填メソッド
@@ -44,6 +61,7 @@ public class BulletManager : MonoBehaviour
             if(magazine > 0)
             {
                 magazine--;                             // マガジンを1消費
+                ui.UpdateMagazine();
                 
                 bulletRecover = StartCoroutine(RecoverBulletCol());     // コルーチンの発動とコルーチン情報を変数に格納
             }
@@ -53,6 +71,8 @@ public class BulletManager : MonoBehaviour
     // 充填コルーチン
     IEnumerator RecoverBulletCol()
     {
+        // リロードUI発動
+        ui.Reloding();
         //counterセット
         counter = recoveryTime;
 
@@ -66,6 +86,7 @@ public class BulletManager : MonoBehaviour
     }
 
     // 画面上に簡易GUI表示
+    /*
     void OnGUI()
     {
         // 残弾数表示UI
@@ -94,4 +115,5 @@ public class BulletManager : MonoBehaviour
             GUI.Label(new Rect(50, 25, 100, 30), label);
         }
     }
+    */
 }
