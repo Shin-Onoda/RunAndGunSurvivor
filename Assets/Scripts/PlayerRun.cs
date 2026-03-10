@@ -21,6 +21,8 @@ public class PlayerRun : MonoBehaviour
 
     CharacterController controller;
     Animator animator;
+    public GameObject animBody;
+    bool isAnime;
 
     // 移動
     Vector3 moveDirection = Vector3.zero;
@@ -35,6 +37,7 @@ public class PlayerRun : MonoBehaviour
 
     [Header("ソードのスクリプト")]
     public NormalSword normalSword;
+
 
     void OnMove(InputValue value)
     {
@@ -58,7 +61,7 @@ public class PlayerRun : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = animBody.GetComponent<Animator>();
     }
 
     void Update()
@@ -157,6 +160,7 @@ public class PlayerRun : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDirection.y = speedJump;
+            animator.SetTrigger("jump");
         }
     }
 
@@ -175,10 +179,19 @@ public class PlayerRun : MonoBehaviour
             GetComponent<NormalShooter>().ShootPowerDown();
             recoverTime = StunDuration;
 
-            if (life <= 0) GameManager.gameState = GameState.gameover;
+            if (life <= 0)
+            {
+                GameManager.gameState = GameState.gameover;
+                if (!isAnime)
+                {
+                    animator.SetTrigger("retry");
+                    isAnime = true;
+                }
+            }
 
             // Destroy(hit.gameObject);
             hit.gameObject.GetComponent<Wall>().CreateEffect();
+            animator.SetTrigger("damage");
         }
     }
 
@@ -187,6 +200,11 @@ public class PlayerRun : MonoBehaviour
         if(other.gameObject.tag == "Goal")
         {
             GameManager.gameState = GameState.stageclear;
+            if (!isAnime)
+            {
+                animator.SetTrigger("result");
+                isAnime = true;
+            }
         }
     }
 }

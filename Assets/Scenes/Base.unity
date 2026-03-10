@@ -151,6 +151,8 @@ MonoBehaviour:
   character: {fileID: 1056368201}
   stageChips:
   - {fileID: 5588397520233624339, guid: 3d832c4119d819142b01cce1b157206a, type: 3}
+  - {fileID: 5588397520233624339, guid: 159f8c19c5ca2d94ea476cae59bd9459, type: 3}
+  - {fileID: 5588397520233624339, guid: ef9ca5cff1e0ee8449467434bcb09340, type: 3}
   startChipIndex: 1
   preInstantiate: 5
   generatedStageList:
