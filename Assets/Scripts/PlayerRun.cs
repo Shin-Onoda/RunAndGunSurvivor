@@ -186,7 +186,7 @@ public class PlayerRun : MonoBehaviour
     {
         if(other.gameObject.tag == "Goal")
         {
-            GameManager.gameState = GameState.gameclear;
+            GameManager.gameState = GameState.stageclear;
         }
     }
 }

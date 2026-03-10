@@ -53,6 +53,7 @@ public class Wall : MonoBehaviour
             currentDamage = StartCoroutine(DamageCol(tag));
             if(life <= 0)   // lifeが0になったら消滅
             {
+                ScoreManager.ScoreUp(point);
                 CreateEffect();
             }
         }

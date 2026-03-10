@@ -34,7 +34,7 @@ public class NormalShooter : MonoBehaviour
         {
             GameManager.RetryScene();
         }
-        else if(GameManager.gameState != GameState.result)
+        else if(GameManager.gameState == GameState.result)
         {
             GameManager gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
             gm.NextScene(gm.nextScene);
